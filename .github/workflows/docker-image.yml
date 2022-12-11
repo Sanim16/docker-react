@@ -21,7 +21,6 @@ jobs:
     - name: Build the Docker image
       run: |-
           echo Building Image and running Tests
-          #docker build . --file Dockerfile.dev --tag sanim16/docker-react:$(date +%s) ##this would have versioned the image
-          docker build . --file Dockerfile.dev --tag sanim16/docker-react:$(date +%s)
-          docker run sanim16/docker-react:$(date +%s) npm run test -- --coverage
+          docker build . --file Dockerfile.dev --tag sanim16/docker-react
+          docker run sanim16/docker-react npm run test -- --coverage
       #working-directory: ./ ##not required as file is in the main directory
