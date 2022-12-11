@@ -6,4 +6,5 @@ COPY . .
 RUN npm run build
 
 FROM nginx
+#EXPOSE 80  ##not needed again to deploy on EBS
 COPY --from=builder /app/build /usr/share/nginx/html

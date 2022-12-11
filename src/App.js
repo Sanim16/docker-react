@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          <b>Hi There! I was changed again by me</b>
+          <b>Hi There! I was deployed to Elastic Beanstalk on AWS using GitHub Actions</b>
 	</p>
 	  <p>Hello again fellas</p>
 	<p>
