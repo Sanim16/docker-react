@@ -1,42 +1,30 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
+## Guide to Build a React App, test and Deploy Application in AWS EBS using Github Actions
 # docker-react
-This project demonstrates integration between Github Actions and AWS Elastic Beanstalk service. A React app is deployed via AWS Elastic Beanstalk as a docker image.
+This project demonstrates integration between Github Actions and AWS Elastic Beanstalk service. A React app is deployed via AWS Elastic Beanstalk after been tested using a docker image.
 
 # Boilerplate React App
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Application Details
 Simple React Application created using create-react-app
 
-# Automation Steps
-* Github Action API call into AWS Service
-* Auto provision of AWS EC2 Instance 
-* Auto creation of AWS S3 Bucket for service
-* Auto creation of AWS Security groups and roles
-* Auto creation of AWS Application Load Balancers
-* Auto Build of specified NodeJS (AWS Variant) Docker image from AWS ECR
-* Build Application in the specified container
-* Exposing ports to open world on Edge Servers
-* Route53 Integration possible if needed
-* Auto Backup provisioning can be intergrated with S3 Glacier if needed
+
+Steps To Deployment
+1. Build react app and Dockerise it then push to GitHub Repo
+2. Create a Github Actions workflow which is triggered on push to main branch       
+3. The Workflow creates a linux hosted runner which
+    - The runner builds the docker image based on the Dockerfile.dev
+    - The runner runs and tests the just built Docker image
+4. The workflow then creates an artifact from step 3 above. A zip file for deployment to EBS
+5. The artifact is then copied to an existing S3 bucket using AWS CLI or a new bucket could be created
+6. Create an ElasticBeanStalk Application using the AWS CLI
+7. Configure all the environment variables :
+    ```
+          EB_APPLICATION_NAME: "YOUR_EBS_APPLICATION_NAME" created in #6
+          EB_APP_ENV_NAME: "YOUR_EBS_APPLICATION_ENVIRONMENT NAME" created in #6
+          DEPLOY_PACKAGE_NAME: "YOUR_APPLICATIO_NAME-${{ github.sha }}.zip" // using github.sha makes sure you have a different package name for each deployment
+          AWS_REGION_NAME: "YOUR_AWS_REGION" where all aws components are created 
+          AWS_BUCKET_NAME: "YOUR_BUCKET_NAME" from #5
+     ```
+     
+ - `Note: Ensure all the AWS components are created in same region`
