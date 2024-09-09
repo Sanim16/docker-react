@@ -12,7 +12,7 @@ Simple React Application created using create-react-app
 Steps To Deployment
 1. Build react app and Dockerise it then push to GitHub Repo
 2. Create a Github Actions workflow which is triggered on push to main branch       
-3. The Workflow creates a linux hosted runner which
+3. The Workflow runs on a github hosted runner(Ubuntu-Latest) which
     - The runner builds the docker image based on the Dockerfile.dev
     - The runner runs and tests the just built Docker image
 4. The workflow then creates an artifact from step 3 above. A zip file for deployment to EBS
